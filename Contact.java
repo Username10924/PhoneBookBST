@@ -6,6 +6,7 @@ public class Contact implements Comparable<Contact>{
 	public String address;
 	public String birthday;
 	public String notes;
+	public BST<Event> events;
 	public Contact() {
 		this.name = " ";
 		this.phoneNumber = " ";
@@ -13,6 +14,7 @@ public class Contact implements Comparable<Contact>{
 		this.address = " ";
 		this.birthday = " ";
 		this.notes = " ";
+		events = new BST<Event>();
 	}
 	public Contact(String name, String phoneNumber, String email, String address, String birthday, String notes) {
 		this.name = name;
@@ -21,7 +23,23 @@ public class Contact implements Comparable<Contact>{
 		this.address = address;
 		this.birthday = birthday;
 		this.notes = notes;
+		events = new BST<Event>();
 	}
+	
+	public boolean addEvent(Event e) {
+		if(!e.isEvent)
+			return false;
+		if(events.empty()) {
+			events.insert(e.title, e);
+			return true;
+		}
+		if(events.traverseDateTime(e.date, e.time))
+			return false;
+		events.insert(e.title, e);
+		return true;
+	}
+
+	
 	public String toString() {
 
 		return "\nName: " + name + 

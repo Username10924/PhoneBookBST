@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class BST <T extends Comparable<T>>{
 	BSTNode<T> root, current;
 	
@@ -67,7 +69,7 @@ public class BST <T extends Comparable<T>>{
 		else if(p.key.compareTo(k) < 0)
 			p.right = remove_aux(k, p.right, flag);
 		else {
-			flag = true;
+			flag.setBoolean(true);
 			if(p.left != null && p.right != null) {
 				q = find_min(p.right);
 				p.key = q.key;
@@ -89,7 +91,7 @@ public class BST <T extends Comparable<T>>{
 		BSTNode<T> p;
 		p = remove_aux(key, root, removed);
 		current = root = p;
-		return removed;
+		return removed.getBoolean();
 	}
 	
 	public boolean update(String k, T data) {
@@ -97,14 +99,59 @@ public class BST <T extends Comparable<T>>{
 		return insert(k, data);
 	}
 	
-	private void traversePrint(BSTNode<T> t) {
+	private void traverse(BSTNode<T> t, Operation op, T var, Boolean found) {
 		if(t == null)
 			return;
-		traversePrint(t.left);
-		System.out.println(t.data);
-		traversePrint(t.right);
+		traverse(t.left, op, var, found);
+		if(op == op.PRINT)
+			System.out.println(t.data);
+		else {
+			if(t.data.compareTo(var) == 0)
+				found.setBoolean(true);
+		}
+		traverse(t.right, op, var, found);
 	}
 	public void traversePrint() {
-		traversePrint(root);
+		traverse(root, Operation.PRINT, null, null);
 	}
+	public boolean traverseSearch(T var) {
+		Boolean found = new Boolean();
+		traverse(root, Operation.SEARCH, var, found);
+		return found.getBoolean();
+	}
+	
+	// * Start of finding phone conflict methods (Contact BST only)*
+	private void traversePhone(BSTNode<Contact> t, String phone, Boolean flag) {
+		if(t == null)
+			return;
+		traversePhone(t.left, phone, flag);
+		if(t.data.phoneNumber.equals(phone))
+			flag.setBoolean(true);
+		traversePhone(t.right, phone, flag);
+	}
+	public boolean traversePhone(String phone) {
+		Boolean flag = new Boolean();
+		traversePhone((BSTNode<Contact>) root, phone, flag);
+		return flag.getBoolean();
+	}
+	// * End of finding phone conflict methods *
+	
+	// * Start of finding date / time conflict methods (Event BST only)*
+	private void traverseDateTime(BSTNode<Event> t, Date date, String time, Boolean flag) {
+		if(t == null)
+			return;
+		traverseDateTime(t.left, date, time, flag);
+		if(t.data.date.compareTo(date) == 0)
+			if(t.data.time.compareTo(time) == 0)
+				flag.setBoolean(true);
+		traverseDateTime(t.right, date, time, flag);
+	}
+	public boolean traverseDateTime(Date date, String time) {
+		Boolean flag = new Boolean();
+		traverseDateTime((BSTNode<Event>) root, date, time, flag);
+		return flag.getBoolean();
+	}
+	// * End of finding date / time conflict methods *
+	
+
 }
