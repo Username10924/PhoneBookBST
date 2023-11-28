@@ -103,7 +103,7 @@ public class BST <T extends Comparable<T>>{
 		if(t == null)
 			return;
 		traverse(t.left, op, var, found);
-		if(op == op.PRINT)
+		if(op == Operation.PRINT)
 			System.out.println(t.data);
 		else {
 			if(t.data.compareTo(var) == 0)
@@ -135,23 +135,6 @@ public class BST <T extends Comparable<T>>{
 		return flag.getBoolean();
 	}
 	// * End of finding phone conflict methods *
-	
-	// * Start of finding date / time conflict methods (Event BST only)*
-	private void traverseDateTime(BSTNode<Event> t, Date date, String time, Boolean flag) {
-		if(t == null)
-			return;
-		traverseDateTime(t.left, date, time, flag);
-		if(t.data.date.compareTo(date) == 0)
-			if(t.data.time.compareTo(time) == 0)
-				flag.setBoolean(true);
-		traverseDateTime(t.right, date, time, flag);
-	}
-	public boolean traverseDateTime(Date date, String time) {
-		Boolean flag = new Boolean();
-		traverseDateTime((BSTNode<Event>) root, date, time, flag);
-		return flag.getBoolean();
-	}
-	// * End of finding date / time conflict methods *
 	
 
 }
