@@ -7,7 +7,7 @@ public class Contact implements Comparable<Contact>{
 	public String birthday;
 	public String notes;
 	public LinkedListADT<Event> events;
-	public Event appointment;
+	//public Event appointment;
 	public Contact() {
 		this.name = " ";
 		this.phoneNumber = " ";
@@ -27,10 +27,7 @@ public class Contact implements Comparable<Contact>{
 		events = new LinkedListADT<Event>();
 	}
 	
-	public boolean addEvent(Event e) {
-		if(!e.isEvent)
-			return false;
-		
+	public boolean addEvent(Event e) {		
 		if(events.isEmpty()) {
 			events.insertSort(e);
 			return true;
@@ -46,12 +43,12 @@ public class Contact implements Comparable<Contact>{
 		return true;
 	}
 	
-	public boolean addAppointment(Event e) {
+	/*public boolean addAppointment(Event e) {
 		if(e.isEvent || appointment != null)
 			return false;
 		appointment = e;
 		return true;
-	}
+	}*/
 
 	
 	public String toString() {

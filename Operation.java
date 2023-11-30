@@ -1,4 +1,4 @@
 
 public enum Operation {
-	PRINT, SEARCH;
+	PRINT, SEARCH, FNAME;
 }

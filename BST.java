@@ -16,7 +16,7 @@ public class BST <T extends Comparable<T>>{
 		return current.data;
 	}
 	
-	private boolean findkey(String k, BSTNode<T> r) {
+	public boolean findkey(String k, BSTNode<T> r) {
 		if(r == null)
 			return false;
 		if(r.key.compareTo(k) == 0) {
@@ -99,25 +99,41 @@ public class BST <T extends Comparable<T>>{
 		return insert(k, data);
 	}
 	
-	private void traverse(BSTNode<T> t, Operation op, T var, Boolean found) {
+	private void traverse(BSTNode<T> t, Operation op, T var, Boolean found, String FName) {
 		if(t == null)
 			return;
-		traverse(t.left, op, var, found);
+		traverse(t.left, op, var, found, FName);
 		if(op == Operation.PRINT)
 			System.out.println(t.data);
-		else {
+		else if(op == Operation.SEARCH) {
 			if(t.data.compareTo(var) == 0)
 				found.setBoolean(true);
 		}
-		traverse(t.right, op, var, found);
+		else {
+			String split[] = ((Contact) t.data).name.split(" ");
+			if(split[0].equalsIgnoreCase(FName)) {
+				if(found.getBoolean()) {
+					found.setBoolean(false);
+					System.out.println("Contact found");
+				}
+				System.out.println(t.data);
+			}
+		}
+		traverse(t.right, op, var, found, FName);
 	}
 	public void traversePrint() {
-		traverse(root, Operation.PRINT, null, null);
+		traverse(root, Operation.PRINT, null, null, null);
 	}
 	public boolean traverseSearch(T var) {
 		Boolean found = new Boolean();
-		traverse(root, Operation.SEARCH, var, found);
+		traverse(root, Operation.SEARCH, var, found, null);
 		return found.getBoolean();
+	}
+	public void traversePrintFName(String FName) {
+		Boolean found = new Boolean(true);
+		traverse(root, Operation.FNAME, null, found, FName);
+		if(found.getBoolean())
+			System.out.println("Contact does not exist");
 	}
 	
 	// * Start of finding phone conflict methods (Contact BST only)*
