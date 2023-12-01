@@ -61,6 +61,20 @@ public class Contact implements Comparable<Contact>{
 		  "\nNotes: " + notes + "\n"; 
 
 	}
+
+	public void printEvent() {
+
+		if(events == null) {
+			System.out.println("no events exist!");
+			return;
+		}
+
+		events.findFirst();
+		while(events.retrieve() != null) {
+			System.out.println(events.retrieve());
+			events.findNext();
+		}
+	}
 	public int compareTo(Contact o) {   
         return (this.name.compareTo(o.name));   
 	}

@@ -114,7 +114,7 @@ public class BST <T extends Comparable<T>>{
 			if(split[0].equalsIgnoreCase(FName)) {
 				if(found.getBoolean()) {
 					found.setBoolean(false);
-					System.out.println("Contact found");
+					System.out.println("Contact found!");
 				}
 				System.out.println(t.data);
 			}
@@ -133,7 +133,7 @@ public class BST <T extends Comparable<T>>{
 		Boolean found = new Boolean(true);
 		traverse(root, Operation.FNAME, null, found, FName);
 		if(found.getBoolean())
-			System.out.println("Contact does not exist");
+			System.out.println("Contact does not exist!");
 	}
 	
 	// * Start of finding phone conflict methods (Contact BST only)*
@@ -152,5 +152,56 @@ public class BST <T extends Comparable<T>>{
 	}
 	// * End of finding phone conflict methods *
 	
+	private static void printContact(BSTNode<Contact> t, String i, String choice, Boolean found) {
+		if(t == null)
+			return;
+		printContact(t.left, i, choice, found);
+		
+		switch(choice) {
 
+			case("1"):
+				if(t.data.name.equalsIgnoreCase(i)){
+					System.out.println(t.data);
+					found.setBoolean(true);
+				}
+				break;	
+			case("2"):
+				if(t.data.phoneNumber.equalsIgnoreCase(i)) {
+					System.out.println(t.data);	
+					found.setBoolean(true);
+				}
+				break;
+			case("3"):
+				if(t.data.email.equalsIgnoreCase(i)) {
+					System.out.println(t.data);
+					found.setBoolean(true);
+				}
+				break;
+			case("4"):
+				if(t.data.address.equalsIgnoreCase(i)){
+					System.out.println(t.data);
+					found.setBoolean(true);
+				}
+				break;
+			case("5"):
+				if(t.data.birthday.equalsIgnoreCase(i)) {
+					System.out.println(t.data);
+					found.setBoolean(true);
+				}
+				break;
+			default:
+				System.out.println("Enter a valid number!");
+				return;
+		}
+		printContact(t.right, i, choice, found);
+
+	}
+
+	public void printContact(String i, String choice) {
+		Boolean found = new Boolean(false);
+		printContact((BSTNode<Contact>) root, i, choice, found);
+
+		if(!found.getBoolean())
+			System.out.println("no contact found!");
+	}
 }

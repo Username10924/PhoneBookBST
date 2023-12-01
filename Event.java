@@ -18,6 +18,13 @@ public class Event implements Comparable<Event>{
 		contacts = new BST<Contact>();
 		this.isEvent = isEvent;
 	}
+
+	public String toString() {
+        return "\nEvent title: " + title +
+        "\nEvent date and time (MM/DD/YYYY HH:MM): " + date + " " + time +
+       "\nEvent location: " + location + "\n";
+    }
+
 	public int compareTo(Event e) {
         return (this.title.compareToIgnoreCase(e.title));
 	}
