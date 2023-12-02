@@ -199,11 +199,11 @@ public class PhoneBook {
 		}
 		if(flag1){
 			listE.insertSort(e);
-			System.out.println("Event scheduled");
+			System.out.println("Event/Appointment scheduled");
 			return true;
 		}
 		else {
-			System.out.println("Event/Appointment has been cancelled due to time coflict for all contacts!");
+			System.out.println("Event has been cancelled due to time coflict for all contacts!");
 			return false;
 		}
 
@@ -231,12 +231,12 @@ public class PhoneBook {
 			listC.retrieve().printEvent();
 			break;
 			case "2":
-			System.out.println("enter event title: ");
+			System.out.println("enter event/appointment title: ");
 			String filler1 = input.nextLine();
 			String title = input.nextLine();
 
 			if(listE == null) {
-				System.out.println("no events exist!");
+				System.out.println("no events/appointments exist!");
 				return;
 			}
 			boolean flag = true;
@@ -250,7 +250,7 @@ public class PhoneBook {
 				listE.findNext();
 			}
 			if(flag)
-				System.out.println("no event exist with this title: " + title);
+				System.out.println("no event/appointment exist with this title: " + title);
 			break;
 			default:
 				System.out.println("enter a valid number!");
@@ -278,7 +278,7 @@ public class PhoneBook {
 				flag = false;
 			}
 			if(flag)
-				System.out.println("No events found");
+				System.out.println("No events/appointments found");
 		}
 		
 		public static void mainmenu() {
