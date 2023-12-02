@@ -20,9 +20,15 @@ public class Event implements Comparable<Event>{
 	}
 
 	public String toString() {
-        return "\nEvent title: " + title +
-        "\nEvent date and time (MM/DD/YYYY HH:MM): " + date + " " + time +
-       "\nEvent location: " + location + "\n";
+		if(isEvent)
+			System.out.println("\nEvent: ");
+		else
+			System.out.println("\nAppointment: ");
+		System.out.println("title: " + title);
+		System.out.println("contacts involved: ");
+		contacts.traversePrint();	
+        return"date and time (MM/DD/YYYY HH:MM): " + date + " " + time +
+       "\nlocation: " + location + "\n";
     }
 
 	public int compareTo(Event e) {

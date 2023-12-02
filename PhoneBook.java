@@ -105,11 +105,11 @@ public class PhoneBook {
 	public static boolean scheduleEvent() throws IllegalArgumentException {
 		String cNames = null;
 		Event e = new Event();
-		System.out.println("Enter type: \n1.event \n2.appointment");
-		String choice = input.next();
 		boolean flag = true;
 		
 		while(flag) {
+			System.out.println("Enter type: \n1.event \n2.appointment");
+			String choice = input.next();
 			switch(choice) {
 			case "1":
 				flag = false;
@@ -273,7 +273,6 @@ public class PhoneBook {
 			// a flag to check if any event exists and print appropriate message
 			boolean flag = true;
 			for(int i = 0; i < listE.size; i++) {
-				System.out.println("Event " + (i+1) + ":");
 				System.out.println(listE.retrieve());
 				listE.findNext();
 				flag = false;

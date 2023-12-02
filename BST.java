@@ -104,7 +104,7 @@ public class BST <T extends Comparable<T>>{
 			return;
 		traverse(t.left, op, var, found, FName);
 		if(op == Operation.PRINT)
-			System.out.println(t.data);
+			System.out.println(((Contact)t.data).name);
 		else if(op == Operation.SEARCH) {
 			if(t.data.compareTo(var) == 0)
 				found.setBoolean(true);
