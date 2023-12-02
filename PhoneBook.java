@@ -25,6 +25,7 @@ public class PhoneBook {
         String notes = input.nextLine();
 
         Contact c = new Contact(name, phone, email, address, bday, notes);
+		//check if contact exist if not then insert
         if(listC.traversePhone(phone) || !listC.insert(name, c)) {
             System.out.println("contact already exist!");
             return false;
@@ -77,21 +78,25 @@ public class PhoneBook {
 		String filler = input.nextLine();
 		String name = input.nextLine();
 
+		//check if contact exist
 		if(!listC.findkey(name, listC.root)) {
 			System.out.println("contact does not exist!");
 			return;
 		}
-
+		//loop to remove contact from events/appointments
 		listE.findFirst();
 		while(listE.retrieve() != null) {
 			listE.retrieve().contacts.remove_key(name);
 			//if no contacts left
-			if(listE.retrieve().contacts.root == null)
+			if(listE.retrieve().contacts.root == null){
+				System.out.println("event/appointment: [" + listE.retrieve().title + "] has been cancelled due to not having any contact left!");
 				listE.remove(listE.retrieve());
+			}
 			listE.findNext();
 		}
 
 		listC.remove_key(name);
+		System.out.println("contact has been deleted!");
 
 
 	}
@@ -123,7 +128,7 @@ public class PhoneBook {
 		// filler solves java bug of skipping input.nextLine()
 		String filler = input.nextLine();
 		e.title = input.nextLine();
-		
+		//if appointment
 		if(!e.isEvent) {
 			System.out.println("Enter contact name: ");
 			String cName = input.nextLine();
@@ -133,16 +138,19 @@ public class PhoneBook {
 			}
 			e.contacts.insert(cName, listC.retrieve());
 		}
+		//if event
 		else {
-			System.out.println("Enter contact names seperated by commas: "); // Ahmed, Faisal, Khaled
+			System.out.println("Enter contact names seperated by commas[name1,name2]: "); 
 			cNames = input.nextLine();
-			String arrName[] = cNames.split(","); // [Ahmed, Faisal, Khaled]
+			String arrName[] = cNames.split(","); 
+			//loop to check if all contacts exist
 			for(int i = 0; i < arrName.length; i++) {
 				if(!listC.findkey(arrName[i], listC.root)) {
 					System.out.println(arrName[i] + " was not found");
 					return false;
 				}
 			}
+			//loop to insert all the contacts in the event
 			for(int i = 0; i < arrName.length; i++) {
 				listC.findkey(arrName[i], listC.root);
 				e.contacts.insert(arrName[i], listC.retrieve());
@@ -166,25 +174,39 @@ public class PhoneBook {
 		
 		System.out.println("Enter event location: ");
 		e.location = input.nextLine();
+
+		boolean flag1 = false;
+		//check for time conflict for appointment
 		if(!e.isEvent) {
 			if(!listC.retrieve().addEvent(e)) {
 				System.out.println("Time conflict");
 				return false;
 			}
+			flag1 = true;
 		}
-		
+		//check for time conflict for event
 		else {
 			String arrName[] = cNames.split(",");
 			for(int i = 0; i < arrName.length; i++) {
 				listC.findkey(arrName[i], listC.root);
-				if(!listC.retrieve().addEvent(e))
+				if(listC.retrieve().addEvent(e))
+					flag1 = true;
+				else {
 					System.out.println("Time conflict for " + listC.retrieve().name);
+					e.contacts.remove_key(listC.retrieve().name);
+				}
 			}
 		}
-		listE.insertSort(e);
-		
-		System.out.println("Event scheduled");
-		return true;
+		if(flag1){
+			listE.insertSort(e);
+			System.out.println("Event scheduled");
+			return true;
+		}
+		else {
+			System.out.println("Event/Appointment has been cancelled due to time coflict for all contacts!");
+			return false;
+		}
+
 	}
 
 	//5) Print event details
@@ -201,6 +223,7 @@ public class PhoneBook {
 			String filler = input.nextLine();
 			String name = input.nextLine();
 
+
 			if(!listC.findkey(name, listC.root)) {
 				System.out.println("contact does not exist!");
 				return;
@@ -216,12 +239,18 @@ public class PhoneBook {
 				System.out.println("no events exist!");
 				return;
 			}
+			boolean flag = true;
+			//loop to print all events with the same title
 			listE.findFirst();
 			while(listE.retrieve() != null) {
-				if(listE.retrieve().title.equalsIgnoreCase(title))
+				if(listE.retrieve().title.equalsIgnoreCase(title)) {
 					System.out.println(listE.retrieve());
+					flag = false;
+				}
 				listE.findNext();
 			}
+			if(flag)
+				System.out.println("no event exist with this title: " + title);
 			break;
 			default:
 				System.out.println("enter a valid number!");
