@@ -64,7 +64,7 @@ public class Contact implements Comparable<Contact>{
 
 	public void printEvent() {
 
-		if(events.retrieve() == null) {
+		if(events == null) {
 			System.out.println("no events exist!");
 			return;
 		}
