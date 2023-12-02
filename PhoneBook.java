@@ -92,7 +92,8 @@ public class PhoneBook {
 				System.out.println("event/appointment: [" + listE.retrieve().title + "] has been cancelled due to not having any contact left!");
 				listE.remove(listE.retrieve());
 			}
-			listE.findNext();
+			else
+				listE.findNext();
 		}
 
 		listC.remove_key(name);
@@ -272,7 +273,7 @@ public class PhoneBook {
 			listE.findFirst();
 			// a flag to check if any event exists and print appropriate message
 			boolean flag = true;
-			for(int i = 0; i < listE.size; i++) {
+			while(listE.retrieve() != null) {
 				System.out.println(listE.retrieve());
 				listE.findNext();
 				flag = false;
