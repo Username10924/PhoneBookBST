@@ -266,7 +266,8 @@ public class PhoneBook {
 	//6) Print contacts by first name
 	public static void printContactFName() {
 		System.out.println("Enter the first name: ");
-		String choice = input.next();
+		String filler = input.nextLine();
+		String choice = input.nextLine();
 
 		listC.traversePrintFName(choice);
 	}
