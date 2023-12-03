@@ -34,6 +34,7 @@ public class PhoneBook {
         return true;
     }
 
+
 	//2) search for a contact
 	public static void searchContact() {
 
@@ -70,8 +71,8 @@ public class PhoneBook {
 		String i = input.nextLine();
 
 		listC.printContact(i, choice);
-
 	}
+
 	//3) Delete a contact
 	public static void DeleteContact() {
 		System.out.println("Enter the name of the contact:");
@@ -89,12 +90,13 @@ public class PhoneBook {
 			listE.retrieve().contacts.remove_key(name);
 			//if no contacts left
 			if(listE.retrieve().contacts.root == null){
-				System.out.println("event/appointment: [" + listE.retrieve().title + "] has been cancelled due to not having any contact left!");
+				System.out.println("Event/Appointment: [" + listE.retrieve().title + "] has been cancelled due to not having any contact left!");
 				listE.remove(listE.retrieve());
 			}
-			else
+			else 
 				listE.findNext();
-		}
+		
+	}
 
 		listC.remove_key(name);
 		System.out.println("contact has been deleted!");
@@ -102,6 +104,7 @@ public class PhoneBook {
 
 	}
 	
+
 	// 4) Schedule an event/appointment
 	public static boolean scheduleEvent() throws IllegalArgumentException {
 		String cNames = null;
@@ -121,7 +124,7 @@ public class PhoneBook {
 				e.isEvent = false;
 				break;
 			default:
-				System.out.println("Wrong input");
+				System.out.println("enter a valid number!");
 			}
 		}
 		
