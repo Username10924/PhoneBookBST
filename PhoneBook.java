@@ -34,6 +34,7 @@ public class PhoneBook {
         return true;
     }
 
+
 	//2) search for a contact
 	public static void searchContact() {
 
@@ -70,8 +71,8 @@ public class PhoneBook {
 		String i = input.nextLine();
 
 		listC.printContact(i, choice);
-
 	}
+
 	//3) Delete a contact
 	public static void DeleteContact() {
 		System.out.println("Enter the name of the contact:");
@@ -89,11 +90,13 @@ public class PhoneBook {
 			listE.retrieve().contacts.remove_key(name);
 			//if no contacts left
 			if(listE.retrieve().contacts.root == null){
-				System.out.println("event/appointment: [" + listE.retrieve().title + "] has been cancelled due to not having any contact left!");
+				System.out.println("Event/Appointment: [" + listE.retrieve().title + "] has been cancelled due to not having any contact left!");
 				listE.remove(listE.retrieve());
 			}
-			listE.findNext();
-		}
+			else 
+				listE.findNext();
+		
+	}
 
 		listC.remove_key(name);
 		System.out.println("contact has been deleted!");
@@ -101,6 +104,7 @@ public class PhoneBook {
 
 	}
 	
+
 	// 4) Schedule an event/appointment
 	public static boolean scheduleEvent() throws IllegalArgumentException {
 		String cNames = null;
@@ -120,7 +124,7 @@ public class PhoneBook {
 				e.isEvent = false;
 				break;
 			default:
-				System.out.println("Wrong input");
+				System.out.println("enter a valid number!");
 			}
 		}
 		
@@ -199,11 +203,11 @@ public class PhoneBook {
 		}
 		if(flag1){
 			listE.insertSort(e);
-			System.out.println("Event scheduled");
+			System.out.println("Event/Appointment scheduled");
 			return true;
 		}
 		else {
-			System.out.println("Event/Appointment has been cancelled due to time coflict for all contacts!");
+			System.out.println("Event has been cancelled due to time coflict for all contacts!");
 			return false;
 		}
 
@@ -231,12 +235,12 @@ public class PhoneBook {
 			listC.retrieve().printEvent();
 			break;
 			case "2":
-			System.out.println("enter event title: ");
+			System.out.println("enter event/appointment title: ");
 			String filler1 = input.nextLine();
 			String title = input.nextLine();
 
 			if(listE == null) {
-				System.out.println("no events exist!");
+				System.out.println("no events/appointments exist!");
 				return;
 			}
 			boolean flag = true;
@@ -250,7 +254,7 @@ public class PhoneBook {
 				listE.findNext();
 			}
 			if(flag)
-				System.out.println("no event exist with this title: " + title);
+				System.out.println("no event/appointment exist with this title: " + title);
 			break;
 			default:
 				System.out.println("enter a valid number!");
@@ -272,13 +276,13 @@ public class PhoneBook {
 			listE.findFirst();
 			// a flag to check if any event exists and print appropriate message
 			boolean flag = true;
-			for(int i = 0; i < listE.size; i++) {
+			while(listE.retrieve() != null) {
 				System.out.println(listE.retrieve());
 				listE.findNext();
 				flag = false;
 			}
 			if(flag)
-				System.out.println("No events found");
+				System.out.println("No events/appointments found");
 		}
 		
 		public static void mainmenu() {
