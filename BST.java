@@ -133,7 +133,7 @@ public class BST <T extends Comparable<T>>{
 		Boolean found = new Boolean(true);
 		traverse(root, Operation.FNAME, null, found, FName);
 		if(found.getBoolean())
-			System.out.println("Contact does not exist!");
+			System.out.println("no Contact found!");
 	}
 	
 	// * Start of finding phone conflict methods (Contact BST only)*
